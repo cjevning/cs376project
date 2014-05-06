@@ -1,0 +1,15 @@
+<% content_for :title, "Sign up" %>
+<% if flash[:notice] %>
+	<% flash[:notice].each do |f| %>
+    <%= f %>
+    <br/>
+    <% end %>
+<% end %>
+
+<%= form_for @user, :url => {:action => :create} do |f| %>
+  <p>Username: <%= f.text_field(:username) %></p>
+  <p>Gender: <%= f.select :gender, options_for_select(%w[Male Female]) %></p>
+  <p>Country: <%= f.country_select("country", ["United States of America"]) %></p>
+  <p>Age: <%= f.number_field(:age, in: 1..110, step: 1) %></p>
+  <p><%= submit_tag "Go" %></p>
+<% end %>

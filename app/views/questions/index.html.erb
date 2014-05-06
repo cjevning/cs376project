@@ -4,17 +4,22 @@
 	<%= flash[:notice] %>
 <% end %>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+
 <% @questions.each do |q| %>
 	<% if q.q_subcategory != "null" %>
 		<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>"></img>
 	<% end %>
 	<%= q.q_text %>
 	<%= form_tag("../answer", :method => "post") do %>
-	<p><%= hidden_field_tag(:old_id, q.id) %></p>
-	
-	<% if q.q_category == "range" %>
+		<p><%= hidden_field_tag(:old_id, q.id) %></p>
+		
+		<% if q.q_category == "range" %>
 		 
-			<%= range_field(:value, in: 1..100) %>
+		 	<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>" id="flash-this"></img>
+			<!-- <#%= range_field_tag(:value, nil, in: 1..100, onchange:"printSliderValue('value')") %> -->
+			<%= range_field_tag(:value, nil, in: 1..100) %>
 			<!--
 			<span id="range">0</span>
 			<script type="text/javascript">
@@ -24,14 +29,66 @@
 				}
 			</script>
 			-->
-	<% else %>
-		<% choicelist = q.choices %>
-		<% choices = choicelist.split(",") %>
-		<% choices.each do |c| %>
-			<%= radio_button_tag(q.id, c, checked = false) %><%= c %>
+		<% else %>
+			<% choicelist = q.choices %>
+			<% choices = choicelist.split(",") %>
+			<% choices.each do |c| %>
+				<%= radio_button_tag(q.id, c, checked = false) %><%= c %>
 		<% end %>
 	<% end %>
 	<%= submit_tag(value = "Next") %>
 	<% end %>
 <% end %>
+
+<script type="text/javascript">
+// flashForRange('value');
+var obj = new flashForRange('value');
+function flashForRange(rangeId) {
+	// var val = $('#value').slider("option", "value");
+	this.rangeSlider = document.getElementById(rangeId);
+	this.isActive = false;
+	obj = this;
+	console.log(this.rangeSlider.value);
+	this.rangeSlider.onmousedown = function(event){
+		obj.mouseDown();
+	}
+	 document.body.mouseup = function(event){
+ 		this.mouseUp(event);
+ 	}
+}
+
+function testFunction(){
+	console.log("test");
+}
+
+flashForRange.prototype.mouseDown = function(event){
+	console.log("mouse down");
+	this.isActive = true;
+
+	this.rangeSlider.onmousemove = function(event) {
+        obj.mouseMove(event);
+    }
+    document.body.onmouseup = function(event){
+ 		obj.mouseUp(event);
+ 	}
+}
+
+flashForRange.prototype.mouseMove = function(event){
+	console.log(this.isActive);
+	if (this.rangeSlider == document.activeElement && this.isActive) console.log(this.rangeSlider.value);
+	document.body.onmouseup = function(event){
+ 		obj.mouseUp(event);
+ 	}
+}
+
+flashForRange.prototype.mouseUp = function(event){
+	console.log("UP");
+	this.isActive = false;
+}
+
+// function printSliderValue(rangeId){
+// 	this.rangeSlider = document.getElementById(rangeId);
+// 	console.log("Print slider value" + this.rangeSlider.value);
+// }
+</script>
 

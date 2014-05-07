@@ -6,21 +6,25 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
-<div id="hidden-content">
-	<p id="stimulus_type"></p>
-	<p id="response_time"></p>
-	<p id="target_value"></p>
+
+<% @questions.each do |q| %>
+	
+
+	<div id="hidden-content">
+		<p id="stimulus_type"></p>
+		<p id="response_time"></p>
 		<p id="target_value"></p>
+			<p id="target_value"></p>
 
-	<p id="q_num"></p>
-	<p id="q_subcategory"></p>
-	<p id="u"></p>
+		<p id="q_num"></p>
+		<p id="q_subcategory"></p>
+		<p id="q_category"><%=q.q_category%></p>
 
-	<p id="group-type"></p>
+		<p id="u"></p>
 
+		<p id="group-type"></p>
+	</div>
 
-
-</div>
 
 <% @questions.each do |q| %>
 	<div id="question">
@@ -32,20 +36,11 @@
 		<p><%= hidden_field_tag(:old_id, q.id) %></p>
 		
 		<% if q.q_category == "range" %>
-		 
-		 	
-			<!-- <#%= range_field_tag(:value, nil, in: 1..100, onchange:"printSliderValue('value')") %> -->
-			<%= range_field_tag(:value, nil, in: 1..100) %>
 
-			<!--
-			<span id="range">0</span>
-			<script type="text/javascript">
-				function showValue(newValue)
-				{
-					document.getElementById("range").innerHTML=newValue;
-				}
-			</script>
-			-->
+			<%= range_field_tag(:value, nil, in: 1..100) %>
+			<p id="slider-value">Value: </p>
+
+
 		<% else %>
 			<% choicelist = q.choices %>
 			<% choices = choicelist.split(",") %>
@@ -58,6 +53,7 @@
 	<%= image_tag "p1c.png", id:"flash-this"%>
 	<% end %>
 	</div>
+	<div id="message-div">TEST</div>
 <% end %>
 
 <script type="text/javascript">
@@ -65,7 +61,7 @@
 var obj = new flashForRange('value');
 var flashTimer;
 var message;
-var imageToFlash = document.getElementById("flash-this");
+var imageToFlash = document.getElementById("message-div");
 var flashMessageFor;
 var flashMessageTimer;
 // int counter;
@@ -75,7 +71,7 @@ var imageIsFlashing;
 
 window.onload = function(){
 	message = "hi";
-	imageToFlash = document.getElementById("flash-this");
+	imageToFlash = document.getElementById("message-div");
 
 	// Flash message ever 1000microseconds
 	setInterval(flashmessage, 1000);
@@ -91,6 +87,8 @@ function flashmessage(){
 function flashForRange(rangeId) {
 	this.rangeSlider = document.getElementById(rangeId);
 	this.isActive = false;
+	console.log(rangeId);
+	console.log(this.rangeSlider);
 	obj = this;
 	this.rangeSlider.onmousedown = function(event){ obj.mouseDown(); }
 	document.body.mouseup = function(event){ this.mouseUp(event); }
@@ -107,9 +105,12 @@ flashForRange.prototype.mouseDown = function(event){
 flashForRange.prototype.mouseMove = function(event){
 	// console.log(this.isActive);
 
+
+	var slider=document.getElementById("slider-value");
 	if (this.rangeSlider == document.activeElement && this.isActive) {
 		message = this.rangeSlider.value;
-		// console.log(this.rangeSlider.value);}
+		console.log(this.rangeSlider.value);
+		slider.innerHTML = "Value: " + message;
 	}
 	document.body.onmouseup = function(event) {obj.mouseUp(event);}
  	

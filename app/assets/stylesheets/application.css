@@ -23,3 +23,8 @@
 #hidden-content{
 	display: none;
 }
+
+#message-div{
+	opacity: 0.3;
+	font-family: "Arial, Helvetica";
+}

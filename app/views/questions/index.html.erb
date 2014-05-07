@@ -11,18 +11,8 @@
 	
 
 	<div id="hidden-content">
-		<p id="stimulus_type"></p>
-		<p id="response_time"></p>
-		<p id="target_value"></p>
-			<p id="target_value"></p>
-
-		<p id="q_num"></p>
-		<p id="q_subcategory"></p>
 		<p id="q_category"><%=q.q_category%></p>
-
-		<p id="u"></p>
-
-		<p id="group-type"></p>
+		<p id="target_value"><%=q.target_value%></p>
 	</div>
 
 
@@ -50,7 +40,7 @@
 	<!-- <img src="<%#= image_path(q.img_filename) %>" alt="<%#= q.img_filename %>" id="flash-this"></img> -->
 	<%= image_tag "p1c.png", id:"flash-this"%>
 	<% end %>
-	<div id="message-div">TEST</div>
+	<p id="message-div"> </p>
 <% end %>
 
 <script type="text/javascript">
@@ -67,7 +57,7 @@ var imageIsVisible;
 var imageIsFlashing;
 
 window.onload = function(){
-	message = "hi";
+	message = " ";
 	imageToFlash = document.getElementById("message-div");
 
 	// Flash message ever 1000microseconds
@@ -76,7 +66,10 @@ window.onload = function(){
 
 function flashmessage(){
 	imageToFlash.style.display = "block";
-	setTimeout(function(){imageToFlash.style.display = "none"}, 5);
+	console.log("Message:" + message);
+	console.log(imageToFlash.innerHTML);
+	imageToFlash.innerHTML = message +" ";
+	setTimeout(function(){imageToFlash.style.display = "none"}, 10);
 }
 
 
@@ -102,12 +95,14 @@ flashForRange.prototype.mouseDown = function(event){
 flashForRange.prototype.mouseMove = function(event){
 	// console.log(this.isActive);
 
-
 	var slider=document.getElementById("slider-value");
 	if (this.rangeSlider == document.activeElement && this.isActive) {
-		message = this.rangeSlider.value;
-		console.log(this.rangeSlider.value);
-		slider.innerHTML = "Value: " + message;
+
+
+		slider.innerHTML = "Value: " + this.rangeSlider.value;
+		handleSliderOutput(this.rangeSlider.value);
+		// message = this.rangeSlider.value;
+		// console.log(this.rangeSlider.value);
 	}
 	document.body.onmouseup = function(event) {obj.mouseUp(event);}
  	
@@ -117,6 +112,20 @@ flashForRange.prototype.mouseUp = function(event){
 	this.isActive = false;
 }
 
+function handleSliderOutput(value){
+	console.log(value);
+	targetValue = document.getElementById("target_value");
+	console.log(target_value.innerHTML);
+	if(value < target_value.innerHTML){
+		message = "MORE";
+	}else if (value > target_value.innerHTML){
+		message= "LESS";
+	}else{
+		message = " ";
+			}
+
+
+}
 
 </script>
 

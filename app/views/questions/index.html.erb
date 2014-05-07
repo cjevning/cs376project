@@ -26,7 +26,6 @@
 	</div>
 
 
-<% @questions.each do |q| %>
 	<div id="question">
 	<% if q.q_subcategory != "null" %>
 		<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>"></img>
@@ -54,7 +53,6 @@
 	<% end %>
 	</div>
 	<div id="message-div">TEST</div>
-<% end %>
 <% end %>
 
 <script type="text/javascript">

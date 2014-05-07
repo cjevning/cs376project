@@ -14,10 +14,8 @@
 
 #flash-this{
 	position: absolute;
-	width: 400px;
-	height: auto;
-	top: 0;
-	right: 0;
+	top: 16px;
+	left: 8px;
 	display: none;
-	
+	opacity: 1;
 }

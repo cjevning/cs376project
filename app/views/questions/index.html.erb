@@ -53,7 +53,8 @@
 		<% end %>
 	<% end %>
 	<%= submit_tag(value = "Next") %>
-	<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>" id="flash-this"></img>
+	<!-- <img src="<%#= image_path(q.img_filename) %>" alt="<%#= q.img_filename %>" id="flash-this"></img> -->
+	<%= image_tag "p1c.png", id:"flash-this"%>
 	<% end %>
 <% end %>
 
@@ -79,9 +80,8 @@ window.onload = function(){
 }
 
 function flashmessage(){
-	console.log("hi");
 	imageToFlash.style.display = "block";
-	setTimeout(function(){imageToFlash.style.display = "none"}, 2);
+	setTimeout(function(){imageToFlash.style.display = "none"}, 5);
 }
 
 

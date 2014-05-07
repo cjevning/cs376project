@@ -20,6 +20,24 @@
 	opacity: 1;
 }
 
+#signup {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center; 
+}
+
+#question {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+img {
+	width: 300px;
+	margin: 0 auto;
+	display: block;
+}
+
 #hidden-content{
 	display: none;
 }

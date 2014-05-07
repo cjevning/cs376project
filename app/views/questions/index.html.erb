@@ -16,6 +16,7 @@
 	</div>
 
 
+	<div id="question">
 	<% if q.q_subcategory != "null" %>
 		<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>"></img>
 	<% end %>
@@ -40,7 +41,7 @@
 	<!-- <img src="<%#= image_path(q.img_filename) %>" alt="<%#= q.img_filename %>" id="flash-this"></img> -->
 	<%= image_tag "p1c.png", id:"flash-this"%>
 	<% end %>
-	<p id="message-div"> </p>
+	<div id="message-div">TEST</div>
 <% end %>
 
 <script type="text/javascript">

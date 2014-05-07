@@ -6,6 +6,8 @@
     <% end %>
 <% end %>
 
+
+<div id="signup">
 <%= form_for @user, :url => {:action => :create} do |f| %>
   <p>Username: <%= f.text_field(:username) %></p>
   <p>Gender: <%= f.select :gender, options_for_select(%w[Male Female]) %></p>
@@ -13,3 +15,4 @@
   <p>Age: <%= f.number_field(:age, in: 1..110, step: 1) %></p>
   <p><%= submit_tag "Go" %></p>
 <% end %>
+</div>

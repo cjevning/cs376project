@@ -23,6 +23,7 @@
 </div>
 
 <% @questions.each do |q| %>
+	<div id="question">
 	<% if q.q_subcategory != "null" %>
 		<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>"></img>
 	<% end %>
@@ -56,6 +57,7 @@
 	<!-- <img src="<%#= image_path(q.img_filename) %>" alt="<%#= q.img_filename %>" id="flash-this"></img> -->
 	<%= image_tag "p1c.png", id:"flash-this"%>
 	<% end %>
+	</div>
 <% end %>
 
 <script type="text/javascript">
@@ -81,7 +83,7 @@ window.onload = function(){
 
 function flashmessage(){
 	imageToFlash.style.display = "block";
-	setTimeout(function(){imageToFlash.style.display = "none"}, 5);
+	setTimeout(function(){imageToFlash.style.display = "none"}, 0);
 }
 
 

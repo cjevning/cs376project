@@ -47,3 +47,7 @@ img {
 	font-size: 24px;
 	font-family: "Arial, Helvetica";
 }
+
+#submitButton{
+	display: block;
+}

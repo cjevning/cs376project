@@ -41,3 +41,7 @@ img {
 #hidden-content{
 	display: none;
 }
+
+#submitButton {
+	display: block;
+}

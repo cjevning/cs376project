@@ -38,8 +38,10 @@
 					<% choicelist = q.choices %>
 					<% choices = choicelist.split(",") %>
 					<div id="radio-buttons">
+						<% x = 0 %>
 						<% choices.each do |c| %>
-							<%= radio_button_tag(q.id, c, checked = false) %><%= c %>
+							<% x += 1 %>
+							<%= radio_button_tag(q.id, x, checked = false) %><%= c %>
 
 						<% end %>
 					</div>

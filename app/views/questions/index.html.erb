@@ -8,8 +8,10 @@
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
 
 <div class="question">
+
+
 	<% @questions.each do |q| %>
-		
+
 
 		<div id="hidden-content">
 			<p id="q_category"><%=q.q_category%></p>
@@ -25,6 +27,8 @@
 			<br>
 		<% end %>
 		<%= q.q_text %>
+		<div id="message-div"><%=q.q_num %></div>
+
 		<%= form_tag("../answer", :method => "post") do %>
 			<p><%= hidden_field_tag(:old_id, q.id) %></p>
 			
@@ -47,12 +51,11 @@
 					</div>
 			<% end %>
 		<div id="submitButton">
-		<%= submit_tag(value = "Next") %>
+		<%= submit_tag(value = "Next", id:"submit-btn") %>
 		</div>
-		<!-- <img src="<%#= image_path(q.img_filename) %>" alt="<%#= q.img_filename %>" id="flash-this"></img> -->
+
 		<%= image_tag "p1c.png", id:"flash-this"%>
 		<% end %>
-		<div id="message-div"><%=q.q_num %></div>
 	<% end %>
 </div>
 <script type="text/javascript">
@@ -64,7 +67,7 @@ var flashMessageFor;
 var flashMessageTimer;
 var q_num;
 var obj = new flashForRange('value');
-
+var valueSelected;
 // int counter;
 
 var imageIsVisible;
@@ -72,6 +75,7 @@ var imageIsFlashing;
 
 window.onload = function(){
 	
+	valueSelected = false;
 
 
 	message = "zrywarybarualwuealaerpara";
@@ -82,11 +86,11 @@ window.onload = function(){
 
 	// Flash message ever 1000microseconds
 	setInterval(flashmessage, 150);
+	var submitButton = document.getElementById("submit-btn");
+	submitButton.disabled = true;
 
-	// var content = document.getElementById("q_category");
-	// if (content.innerHTML == "choice"){
-
-	// }
+	setTimeout(function(){submitButton.disabled = false;}, 10000);
+	
 }
 
 function flashmessage(){
@@ -97,27 +101,32 @@ function flashmessage(){
 		imageToFlash.innerHTML = "plqqer ublcu arepa lselsdkfl";
 		setTimeout(function(){imageToFlash.innerHTML = message;}, 40);
 		setTimeout(function(){imageToFlash.innerHTML = "asfeld asdfwvk fjewo iaflse";}, 90);
-	} else if(q_num == 3){
-		var parentElem = document.getElementById("radio-buttons");
-		if(!parentElem) console.log("FUCK");
-		// console.log(parentElem);
-		var currCheckBox = parentElem.firstChild;
-		if (!currCheckBox) console.log("FUCKKKKK");
-		// console.log(currCheckBox);
+	} else if(q_num == 3 || q_num == 4){
+		i = 1;
 
+
+		var currCheckBox = document.getElementById(q_num + "_"+i);
 		var rate_value;
-
+		var target_value = document.getElementById("target_value").innerHTML;
+		console.log(target_value);
 		// Get current value
 		while (currCheckBox){
 			if (currCheckBox.checked) {
 			  rate_value = currCheckBox.value;
 			  console.log(rate_value);
+			  valueSelected = true;
 			  break;
 			} else{
-				currCheckBox = currCheckBox.nextSibling();
+				i += 1;
+				currCheckBox = document.getElementById(q_num+"_"+i);
 			}
 		}
-		
+		if (rate_value != target_value){
+			message = "vrp wrong no bad incorrectf"
+			console.log(target_value);
+		} else{
+			message = "dagood yes correct nicestjob"
+		}
 
 		// Update block to flash corresponding message
 		imageToFlash.style.display = "block";
@@ -157,16 +166,11 @@ flashForRange.prototype.mouseDown = function(event){
 }
 
 flashForRange.prototype.mouseMove = function(event){
-	// console.log(this.isActive);
-
+	
 	var slider=document.getElementById("slider-value");
 	if (this.rangeSlider == document.activeElement && this.isActive) {
-
-
 		slider.innerHTML = "Value: " + this.rangeSlider.value;
 		handleSliderOutput(this.rangeSlider.value);
-		// message = this.rangeSlider.value;
-		// console.log(this.rangeSlider.value);
 	}
 	document.body.onmouseup = function(event) {obj.mouseUp(event);}
  	

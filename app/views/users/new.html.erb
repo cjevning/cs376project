@@ -5,9 +5,24 @@
     <br/>
     <% end %>
 <% end %>
+<br><br><br><br>
 
 
 <div id="signup">
+
+<div id="description">
+	<p>Hi, thanks for helping us with our study. 
+
+		<br><br>On the next few pages you'll find a series of questions that explore how distraction influences the decision making process. <br><br>
+
+	After selecting an answer, you will be given 10 seconds to either confirm that choice or select an alternative. After that period, we will move on to the next choice. 
+	<br><br>
+	Try not to think about which question is right. Just select the anser that comes to you most naturally.
+
+	Enjoy!
+	</p>	
+</div>
+<br><br><br>
 <%= form_for @user, :url => {:action => :create} do |f| %>
   <p>Username: <%= f.text_field(:username) %></p>
   <p>Gender: <%= f.select :gender, options_for_select(%w[Male Female]) %></p>

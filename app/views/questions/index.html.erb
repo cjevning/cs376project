@@ -6,6 +6,21 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
+<div id="hidden-content">
+	<p id="stimulus_type"></p>
+	<p id="response_time"></p>
+	<p id="target_value"></p>
+		<p id="target_value"></p>
+
+	<p id="q_num"></p>
+	<p id="q_subcategory"></p>
+	<p id="u"></p>
+
+	<p id="group-type"></p>
+
+
+
+</div>
 
 <% @questions.each do |q| %>
 	<% if q.q_subcategory != "null" %>
@@ -17,9 +32,10 @@
 		
 		<% if q.q_category == "range" %>
 		 
-		 	<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>" id="flash-this"></img>
+		 	
 			<!-- <#%= range_field_tag(:value, nil, in: 1..100, onchange:"printSliderValue('value')") %> -->
 			<%= range_field_tag(:value, nil, in: 1..100) %>
+
 			<!--
 			<span id="range">0</span>
 			<script type="text/javascript">
@@ -37,58 +53,70 @@
 		<% end %>
 	<% end %>
 	<%= submit_tag(value = "Next") %>
+	<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>" id="flash-this"></img>
 	<% end %>
 <% end %>
 
 <script type="text/javascript">
-// flashForRange('value');
+
 var obj = new flashForRange('value');
+var flashTimer;
+var message;
+var imageToFlash = document.getElementById("flash-this");
+var flashMessageFor;
+var flashMessageTimer;
+// int counter;
+
+var imageIsVisible;
+var imageIsFlashing;
+
+window.onload = function(){
+	message = "hi";
+	imageToFlash = document.getElementById("flash-this");
+
+	// Flash message ever 1000microseconds
+	setInterval(flashmessage, 1000);
+}
+
+function flashmessage(){
+	console.log("hi");
+	imageToFlash.style.display = "block";
+	setTimeout(function(){imageToFlash.style.display = "none"}, 2);
+}
+
+
+
 function flashForRange(rangeId) {
-	// var val = $('#value').slider("option", "value");
 	this.rangeSlider = document.getElementById(rangeId);
 	this.isActive = false;
 	obj = this;
-	console.log(this.rangeSlider.value);
-	this.rangeSlider.onmousedown = function(event){
-		obj.mouseDown();
-	}
-	 document.body.mouseup = function(event){
- 		this.mouseUp(event);
- 	}
-}
-
-function testFunction(){
-	console.log("test");
+	this.rangeSlider.onmousedown = function(event){ obj.mouseDown(); }
+	document.body.mouseup = function(event){ this.mouseUp(event); }
 }
 
 flashForRange.prototype.mouseDown = function(event){
-	console.log("mouse down");
 	this.isActive = true;
 
-	this.rangeSlider.onmousemove = function(event) {
-        obj.mouseMove(event);
-    }
-    document.body.onmouseup = function(event){
- 		obj.mouseUp(event);
- 	}
+	// To handle slider action
+	this.rangeSlider.onmousemove = function(event) {obj.mouseMove(event);}
+    document.body.onmouseup = function(event){obj.mouseUp(event);}
 }
 
 flashForRange.prototype.mouseMove = function(event){
-	console.log(this.isActive);
-	if (this.rangeSlider == document.activeElement && this.isActive) console.log(this.rangeSlider.value);
-	document.body.onmouseup = function(event){
- 		obj.mouseUp(event);
- 	}
+	// console.log(this.isActive);
+
+	if (this.rangeSlider == document.activeElement && this.isActive) {
+		message = this.rangeSlider.value;
+		// console.log(this.rangeSlider.value);}
+	}
+	document.body.onmouseup = function(event) {obj.mouseUp(event);}
+ 	
 }
 
 flashForRange.prototype.mouseUp = function(event){
-	console.log("UP");
 	this.isActive = false;
 }
 
-// function printSliderValue(rangeId){
-// 	this.rangeSlider = document.getElementById(rangeId);
-// 	console.log("Print slider value" + this.rangeSlider.value);
-// }
+
 </script>
 

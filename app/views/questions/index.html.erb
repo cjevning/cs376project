@@ -5,83 +5,142 @@
 <% end %>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
 
-
-<% @questions.each do |q| %>
-	
-
-	<div id="hidden-content">
-		<p id="q_category"><%=q.q_category%></p>
-		<p id="target_value"><%=q.target_value%></p>
-	</div>
-
-
-	<div id="question">
-	<% if q.q_subcategory != "null" %>
-		<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>"></img>
-	<% end %>
-	<%= q.q_text %>
-	<%= form_tag("../answer", :method => "post") do %>
-		<p><%= hidden_field_tag(:old_id, q.id) %></p>
+<div class="question">
+	<% @questions.each do |q| %>
 		
-		<% if q.q_category == "range" %>
 
-			<%= range_field_tag(:value, nil, in: 1..100) %>
-			<p id="slider-value">Value: </p>
+		<div id="hidden-content">
+			<p id="q_category"><%=q.q_category%></p>
+			<p id="target_value"><%=q.target_value%></p>
+			<p id="q_num"><%=q.q_num%></p>
+		</div>
 
 
-		<% else %>
-			<% choicelist = q.choices %>
-			<% choices = choicelist.split(",") %>
-			<% choices.each do |c| %>
-				<%= radio_button_tag(q.id, c, checked = false) %><%= c %>
+		<div id="question">
+		<% if q.q_subcategory != "null" %>
+		<br>
+			<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>"></img>
+			<br>
 		<% end %>
-	<% end %>
-	<div id="submitButton">
-	<%= submit_tag(value = "Next") %>
-	</div>
-	<!-- <img src="<%#= image_path(q.img_filename) %>" alt="<%#= q.img_filename %>" id="flash-this"></img> -->
-	<%= image_tag "p1c.png", id:"flash-this"%>
-	<% end %>
-	<div id="message-div">TEST</div>
-<% end %>
+		<%= q.q_text %>
+		<%= form_tag("../answer", :method => "post") do %>
+			<p><%= hidden_field_tag(:old_id, q.id) %></p>
+			
+			<% if q.q_category == "range" %>
 
+				<%= range_field_tag(:value, nil, in: 1..100) %>
+				<p id="slider-value">Value: </p>
+
+
+			<% else %>
+					<% choicelist = q.choices %>
+					<% choices = choicelist.split(",") %>
+					<div id="radio-buttons">
+						<% choices.each do |c| %>
+							<%= radio_button_tag(q.id, c, checked = false) %><%= c %>
+
+						<% end %>
+					</div>
+			<% end %>
+		<div id="submitButton">
+		<%= submit_tag(value = "Next") %>
+		</div>
+		<!-- <img src="<%#= image_path(q.img_filename) %>" alt="<%#= q.img_filename %>" id="flash-this"></img> -->
+		<%= image_tag "p1c.png", id:"flash-this"%>
+		<% end %>
+		<div id="message-div"><%=q.q_num %></div>
+	<% end %>
+</div>
 <script type="text/javascript">
 
-var obj = new flashForRange('value');
 var flashTimer;
 var message;
 var imageToFlash = document.getElementById("message-div");
 var flashMessageFor;
 var flashMessageTimer;
+var q_num;
+var obj = new flashForRange('value');
+
 // int counter;
 
 var imageIsVisible;
 var imageIsFlashing;
 
 window.onload = function(){
-	message = " ";
+	
+
+
+	message = "zrywarybarualwuealaerpara";
+	q_num = document.getElementById("q_num").innerHTML;
+
+
 	imageToFlash = document.getElementById("message-div");
 
 	// Flash message ever 1000microseconds
-	setInterval(flashmessage, 1000);
+	setInterval(flashmessage, 150);
+
+	// var content = document.getElementById("q_category");
+	// if (content.innerHTML == "choice"){
+
+	// }
 }
 
 function flashmessage(){
-	imageToFlash.style.display = "block";
-	console.log("Message:" + message);
-	console.log(imageToFlash.innerHTML);
-	imageToFlash.innerHTML = message +" ";
-	setTimeout(function(){imageToFlash.style.display = "none"}, 10);
+	// console.log(q_num);
+	if (q_num == 1 || q_num == 2){
+		imageToFlash.style.display = "block";
+		imageToFlash.innerHTML = message +" ";
+		imageToFlash.innerHTML = "plqqer ublcu arepa lselsdkfl";
+		setTimeout(function(){imageToFlash.innerHTML = message;}, 40);
+		setTimeout(function(){imageToFlash.innerHTML = "asfeld asdfwvk fjewo iaflse";}, 90);
+	} else if(q_num == 3){
+		var parentElem = document.getElementById("radio-buttons");
+		if(!parentElem) console.log("FUCK");
+		// console.log(parentElem);
+		var currCheckBox = parentElem.firstChild;
+		if (!currCheckBox) console.log("FUCKKKKK");
+		// console.log(currCheckBox);
+
+		var rate_value;
+
+		// Get current value
+		while (currCheckBox){
+			if (currCheckBox.checked) {
+			  rate_value = currCheckBox.value;
+			  console.log(rate_value);
+			  break;
+			} else{
+				currCheckBox = currCheckBox.nextSibling();
+			}
+		}
+		
+
+		// Update block to flash corresponding message
+		imageToFlash.style.display = "block";
+		imageToFlash.innerHTML = message +" ";
+		imageToFlash.innerHTML = "plqqer ublcu arepa lselsdkfl";
+		setTimeout(function(){imageToFlash.innerHTML = message;}, 40);
+		setTimeout(function(){imageToFlash.innerHTML = "asfeld asdfwvk fjewo iaflse";}, 90);
+
+
+	}
+		
 }
+
+
+
+
 
 
 
 function flashForRange(rangeId) {
 	this.rangeSlider = document.getElementById(rangeId);
 	this.isActive = false;
-	console.log(rangeId);
-	console.log(this.rangeSlider);
+	// console.log(rangeId);
+	// console.log(this.rangeSlider);
+	if (!this.rangeSlider) return;
 	obj = this;
 	this.rangeSlider.onmousedown = function(event){ obj.mouseDown(); }
 	document.body.mouseup = function(event){ this.mouseUp(event); }
@@ -116,16 +175,16 @@ flashForRange.prototype.mouseUp = function(event){
 }
 
 function handleSliderOutput(value){
-	console.log(value);
+	// console.log(value);
 	targetValue = document.getElementById("target_value");
 	console.log(target_value.innerHTML);
 	if(value < target_value.innerHTML){
-		message = "MORE";
+		message = "zq more greater add increase";
 	}else if (value > target_value.innerHTML){
-		message= "LESS";
+		message= "aeless smaller decrease reduce";
 	}else{
-		message = " ";
-			}
+		message = "perfectwonderfulgreatawesome";
+	}
 
 
 }

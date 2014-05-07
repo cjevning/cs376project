@@ -12,6 +12,24 @@
  *= require_tree .
  */
 
+ body{
+ 	font-family: 'Lato', sans-serif;
+ 	font-weight: 100;
+ }
+
+input[type=range]{
+	min-width: 300px;
+}
+
+input{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.question{
+	margin-top: 150px;
+}
+
 #flash-this{
 	position: absolute;
 	top: 16px;
@@ -43,9 +61,9 @@ img {
 }
 
 #message-div{
-	opacity: 0.05;
+	opacity: 0.3;
 	font-size: 24px;
-	font-family: "Arial, Helvetica";
+	letter-spacing: 1;
 }
 
 #submitButton{

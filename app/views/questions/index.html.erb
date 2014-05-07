@@ -99,7 +99,7 @@ function flashmessage(){
 		imageToFlash.style.display = "block";
 		imageToFlash.innerHTML = message +" ";
 		imageToFlash.innerHTML = "plqqer ublcu arepa lselsdkfl";
-		setTimeout(function(){imageToFlash.innerHTML = message;}, 40);
+		setTimeout(function(){imageToFlash.innerHTML = message;}, 30);
 		setTimeout(function(){imageToFlash.innerHTML = "asfeld asdfwvk fjewo iaflse";}, 90);
 	} else if(q_num == 3 || q_num == 4){
 		i = 1;
@@ -122,10 +122,10 @@ function flashmessage(){
 			}
 		}
 		if (rate_value != target_value){
-			message = "vrp wrong no bad incorrectf"
+			message = "asd change no bad incorrectf"
 			console.log(target_value);
 		} else{
-			message = "dagood yes correct nicestjob"
+			message = "da good yes correct nicejob"
 		}
 
 		// Update block to flash corresponding message
@@ -133,7 +133,7 @@ function flashmessage(){
 		imageToFlash.innerHTML = message +" ";
 		imageToFlash.innerHTML = "plqqer ublcu arepa lselsdkfl";
 		setTimeout(function(){imageToFlash.innerHTML = message;}, 40);
-		setTimeout(function(){imageToFlash.innerHTML = "asfeld asdfwvk fjewo iaflse";}, 90);
+		setTimeout(function(){imageToFlash.innerHTML = "asfeld asdfwvk fjewo iaflse";}, 50);
 
 
 	}
@@ -166,7 +166,7 @@ flashForRange.prototype.mouseDown = function(event){
 }
 
 flashForRange.prototype.mouseMove = function(event){
-	
+
 	var slider=document.getElementById("slider-value");
 	if (this.rangeSlider == document.activeElement && this.isActive) {
 		slider.innerHTML = "Value: " + this.rangeSlider.value;
@@ -187,7 +187,7 @@ function handleSliderOutput(value){
 	if(value < target_value.innerHTML){
 		message = "zq more greater add increase";
 	}else if (value > target_value.innerHTML){
-		message= "aeless smaller decrease reduce";
+		message= "aless smaller decrease reduce";
 	}else{
 		message = "perfectwonderfulgreatawesome";
 	}

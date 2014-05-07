@@ -1,9 +1,9 @@
 class Loaddata < ActiveRecord::Migration
   def change
-  	q1 = Question.new(:q_num => 1, :q_category => "range", :q_text => "On a scale from 1 to 100, how was this person feeling?", 
+  	q1 = Question.new(:q_num => 1, :q_category => "range", :q_text => "On a scale from 1 to 100, how happy is this person?", 
   		:img_filename => "p1.jpg", :q_subcategory => "encourage", :target_value => 75, :upper_bound => 100, :choices => "")
   	q1.save(:validate => false)
-  	q2 = Question.new(:q_num => 2, :q_category => "range", :q_text => "On a scale from 1 to 100, how would you rate this painting?",
+  	q2 = Question.new(:q_num => 2, :q_category => "range", :q_text => "On a scale from 1 to 100, how would you rate the quality (good/bad) of this painting?",
   		:img_filename => "p2.jpg", :q_subcategory => "encourage", :target_value => 50, :upper_bound => 100, :choices => "")
   	q2.save(:validate => false)
   	q3 = Question.new(:q_num => 3, :q_category => "choice", :q_text => "Which of these words do you think is real?",

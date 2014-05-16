@@ -1,0 +1,58 @@
+
+
+
+
+
+<div class="value-cycle-wrapper">
+	<p class="hidden" id="num-image">3</p>
+	<img src="http://media-cache-ak0.pinimg.com/736x/57/8a/47/578a47fb6b4638049260e65a2ad728df.jpg" alt="" id="cycle-0" class="cycle-elem">
+
+		<img src="http://media-cache-ak0.pinimg.com/736x/72/94/9c/72949c1da6e0adf5d256d36c527eed54.jpg" alt="" id="cycle-1" class="cycle-elem">
+
+	<img src="http://media-cache-cd0.pinimg.com/736x/d0/b1/a2/d0b1a2f725667ab2ed488dabc24a5b41.jpg" alt="" id="cycle-2" class="cycle-elem">
+
+
+</div>
+
+
+<script>
+
+var images = [];
+var timeInterval = 30;
+window.onload = function(){
+	var numImagesElem = document.getElementById("num-image");
+	var numImages = parseInt(numImagesElem.innerHTML);
+	// var firstImage = document.getElementById("cycle-0");
+	// // console.log(numImages);
+
+	for ( i=0; i<parseInt(numImages); i++){
+		var id = "cycle-"+i;
+		console.log("getting id:" + id);
+		images[i] = document.getElementById(id);
+	}
+
+	// while(true){
+
+	for ( i=1; i<parseInt(numImages); i++){
+		var currElem = images[i];
+		currElem.style.display = "none";
+		setTimeout(function(){setInterval(function(){flashImage(currElem, timeInterval)}, timeInterval*numImages)}, timeInterval);
+		console.log("flashing image for: " + i);
+		console.log(currElem);
+		// var submitButton = document.getElementById("submit-btn");
+		// submitButton.disabled = true;
+
+		// setTimeout(function(){submitButton.disabled = false;}, 10000);
+
+	}
+
+	
+}
+
+function flashImage(currElem, time){
+	// console.log("flashing" + currElem);
+	currElem.style.display = "block";
+	setTimeout(function(){currElem.style.display = "none"}, time);
+}
+
+</script>

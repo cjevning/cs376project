@@ -6,13 +6,16 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-<%= javascript_include_tag "flash_message.js" %>
+<%= javascript_include_tag "flash_message_updated.js" %>
 
 <div class="question">
 
 
 	<% @questions.each do |q| %>
-
+		<div class="value-cycle-wrapper">
+			<%#= render "text_stimuli" %>
+			<%= render "users/image_stimuli" %>
+		</div>
 
 		<div id="hidden-content">
 			<p id="q_category"><%=q.q_category%></p>

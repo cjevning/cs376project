@@ -13,7 +13,6 @@
 
 var options = [];
 var timeInterval =20;
-var prevImgNum = 0;
 var recentOptions = [];
 var numRecentOptsToStore = 8;
 var counter = 0;
@@ -25,6 +24,16 @@ var numOptions;
 
 
 window.onload = function(){
+
+	var q_type;
+	if (document.getElementById("q-type")){
+		q_type = document.getElementById("q-type").innerHTML;
+	}
+	if (q_type == "range") flashForRange();
+	else if (q_type == "select") flashForSelect();
+
+
+
 	var numOptionsElem = document.getElementById("num-image");
 	numRegOpts = parseInt(numOptionsElem.innerHTML);
 
@@ -32,8 +41,7 @@ window.onload = function(){
 	numStim = parseInt(document.getElementById("num-stim").innerHTML);
 	numOptions = numRegOpts;
 
-	i = 0;
-	for (i; i<numRegOpts; i++){
+	for (i=0; i<numRegOpts; i++){
 		var id = "cycle-"+i;
 		console.log("getting id:" + id);
 		options[i] = document.getElementById(id);
@@ -41,48 +49,20 @@ window.onload = function(){
 	}
 
 	changeStimulis(true);
-	setTimeout(function(){changeStimulis(false)}, 3000);	
-
-
-
-	var isPositive = true;
 	setInterval(function(){flashRandomStimuli()}, timeInterval);
 	
 }
 
-function flashRandomStimuliAlt(){
-	
-	var optionToFlash=Math.floor((Math.random() * numOptions));
-
-	while (prevImgNum == optionToFlash){
-		optionToFlash = Math.floor((Math.random() * numOptions));
-	}
-	prevImgNum = optionToFlash;
-	console.log(optionToFlash);
-
-	options[optionToFlash].style.display = "block";
-	setTimeout(function(){options[optionToFlash].style.display = "none"}, timeInterval-10);
-	// console.log(optionToFlash);
-}
-
-
 
 function flashRandomStimuli(){
-	
 	counter++; 
 	var optionToFlash=Math.floor((Math.random() * numOptions));
-
 	while (recentOptions.indexOf(optionToFlash) >= 0 ){
 		optionToFlash = Math.floor((Math.random() * numOptions));
 	}
-
 	recentOptions[counter % numRecentOptsToStore] = optionToFlash;
-	
-	// console.log(counter + " : " + optionToFlash);
-
 	options[optionToFlash].style.display = "block";
 	setTimeout(function(){options[optionToFlash].style.display = "none"}, timeInterval);
-	// console.log(optionToFlash);
 }
 
 function changeStimulis(isPositive){
@@ -109,6 +89,81 @@ function changeStimulis(isPositive){
 
 	numOptions = numRegOpts + numStim - 1;
 
+}
+
+
+function flashForRange(rangeId) {
+	this.rangeSlider = document.getElementById(rangeId);
+	this.isActive = false;
+	if (!this.rangeSlider) return;
+	obj = this;
+	this.rangeSlider.onmousedown = function(event){ obj.mouseDown(); }
+	document.body.mouseup = function(event){ this.mouseUp(event); }
+}
+
+flashForRange.prototype.mouseDown = function(event){
+	this.isActive = true;
+
+	// To handle slider action
+	this.rangeSlider.onmousemove = function(event) {obj.mouseMove(event);}
+    document.body.onmouseup = function(event){obj.mouseUp(event);}
+}
+
+flashForRange.prototype.mouseMove = function(event){
+
+	var slider=document.getElementById("slider-value");
+	if (this.rangeSlider == document.activeElement && this.isActive) {
+		slider.innerHTML = "Value: " + this.rangeSlider.value;
+		handleSliderOutput(this.rangeSlider.value);
+	}
+	document.body.onmouseup = function(event) {obj.mouseUp(event);}
+ 	
+}
+
+flashForRange.prototype.mouseUp = function(event){
+	this.isActive = false;
+}
+
+function handleSliderOutput(value){
+	// console.log(value);
+	targetValue = document.getElementById("target_value");
+	console.log(target_value.innerHTML);
+	if(value < target_value.innerHTML){
+		changeStimulis(true);
+	}else if (value > target_value.innerHTML){
+		changeStimulis(false);
+	}
+	// }else{
+	// 	message = "perfectwonderfulgreatawesome";
+	// }
+
+
+}
+
+function flashForSelect(){
+	i = 1;
+	var currCheckBox = document.getElementById(q_num + "_"+i);
+	var target_value = document.getElementById("target_value").innerHTML;
+	var rate_value;
+
+	// console.log(target_value);
+
+	// Get current value
+	while (currCheckBox){
+		if (currCheckBox.checked) {
+		  rate_value = currCheckBox.value;
+		  console.log(rate_value);
+		  break;
+		} else{
+			i += 1;
+			currCheckBox = document.getElementById(q_num+"_"+i);
+		}
+	}
+	if (rate_value != target_value){
+		changeStimulis(false);
+	} else{
+		changeStimulis(true);
+	}
 }
 
 

@@ -65,7 +65,7 @@ function flashmessage(){
 			message = "asd change no bad incorrectf"
 			console.log(target_value);
 		} else{
-			message = "da good yes correct nicejob"
+			message = "Mollis Pellentesque Dolor Cras Magna"
 		}
 
 		// Update block to flash corresponding message

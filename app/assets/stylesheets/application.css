@@ -88,13 +88,18 @@ img {
 
 .value-cycle-wrapper{
 	position: relative;
+	width: 300px;
+	height: 400px;
+	overflow: hidden;
 }
 
 .cycle-elem{
 	position: absolute;
 	left: 0;
 	top: 0;
-
+	opacity: 1;
+	width: 100%;
+	display: none;
 }
 
 .hidden{

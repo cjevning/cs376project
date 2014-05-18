@@ -4,12 +4,40 @@
 
 
 <div class="value-cycle-wrapper">
-	<p class="hidden" id="num-image">3</p>
+	<p class="hidden" id="num-image">10</p>
+	<p class="hidden" id="num-stim">2</p>
+
 	<img src="http://media-cache-ak0.pinimg.com/736x/57/8a/47/578a47fb6b4638049260e65a2ad728df.jpg" alt="" id="cycle-0" class="cycle-elem">
 
 		<img src="http://media-cache-ak0.pinimg.com/736x/72/94/9c/72949c1da6e0adf5d256d36c527eed54.jpg" alt="" id="cycle-1" class="cycle-elem">
 
 	<img src="http://media-cache-cd0.pinimg.com/736x/d0/b1/a2/d0b1a2f725667ab2ed488dabc24a5b41.jpg" alt="" id="cycle-2" class="cycle-elem">
+	
+	<img src="http://media-cache-cd0.pinimg.com/736x/6b/19/b1/6b19b1985128abeaaeff5a700c6fac9b.jpg" alt="" id="cycle-3" class="cycle-elem">
+
+	<img src="http://media-cache-ec0.pinimg.com/736x/fd/d6/bd/fdd6bdca60b14bc29de00707f18d46a8.jpg" alt="" id="cycle-4" class="cycle-elem">
+
+	<img src="http://media-cache-cd0.pinimg.com/736x/8c/e9/b5/8ce9b521d7db5e23e4cebbb12345da3d.jpg" alt="" id="cycle-5" class="cycle-elem">
+
+
+	<img src="http://media-cache-ak0.pinimg.com/736x/69/38/0a/69380ad47d5163bd8748aa8c40a78874.jpg" alt="" id="cycle-6" class="cycle-elem">
+
+	<img src="http://media-cache-cd0.pinimg.com/736x/86/93/93/8693932693dc8b58a8974a5f714d51a4.jpg" alt="" id="cycle-7" class="cycle-elem">
+
+	<img src="http://media-cache-ec0.pinimg.com/736x/7d/a4/99/7da499e540ff969bbe54cdde731d57af.jpg" alt="" id="cycle-8" class="cycle-elem">
+
+	<img src="http://media-cache-ec0.pinimg.com/736x/fe/8e/45/fe8e457791b75a7616a03baa3ea12088.jpg" alt="" id="cycle-9" class="cycle-elem">
+
+	<img src="http://media-cache-ec0.pinimg.com/736x/72/0b/4f/720b4fc5ad719fd9d712e4d8c79e438a.jpg" alt="" id="pos-0" class="cycle-elem">
+
+	<img src="http://media-cache-ec0.pinimg.com/736x/dd/2a/e5/dd2ae57bc1a23dbecbb0523f53149f9d.jpg" alt="" id="pos-1" class="cycle-elem">
+
+
+	<img src="http://media-cache-ec0.pinimg.com/736x/a7/b4/50/a7b4506b5de3d6d82d1dd04866b335c9.jpg" alt="" id="neg-0" class="cycle-elem">
+
+	<img src="http://media-cache-ak0.pinimg.com/736x/9d/0a/aa/9d0aaa20a681b1698d6d04db81086621.jpg" alt="" id="neg-1" class="cycle-elem">
+
+	<!--  -->
 
 
 </div>
@@ -17,42 +45,103 @@
 
 <script>
 
-var images = [];
-var timeInterval = 30;
-window.onload = function(){
-	var numImagesElem = document.getElementById("num-image");
-	var numImages = parseInt(numImagesElem.innerHTML);
-	// var firstImage = document.getElementById("cycle-0");
-	// // console.log(numImages);
+var options = [];
+var timeInterval = 20;
+var prevImgNum = 0;
+var recentOptions = [];
+var numRecentOptsToStore = 8;
+var counter = 0;
+var numRegOpts;
+var numStim;
+var numOptions;
 
-	for ( i=0; i<parseInt(numImages); i++){
+
+
+
+window.onload = function(){
+	var numOptionsElem = document.getElementById("num-image");
+	numRegOpts = parseInt(numOptionsElem.innerHTML);
+
+	// var numOptionsElem = document.getElementById("num-positive");
+	numStim = parseInt(document.getElementById("num-stim").innerHTML);
+	numOptions = numRegOpts;
+
+	i = 0;
+	for (i; i<numRegOpts; i++){
 		var id = "cycle-"+i;
 		console.log("getting id:" + id);
-		images[i] = document.getElementById(id);
+		options[i] = document.getElementById(id);
+		options[i].style.display = "none";
 	}
 
-	// while(true){
+	changeStimulis(true);
+	setTimeout(function(){changeStimulis(false)}, 3000);	
 
-	for ( i=1; i<parseInt(numImages); i++){
-		var currElem = images[i];
-		currElem.style.display = "none";
-		setTimeout(function(){setInterval(function(){flashImage(currElem, timeInterval)}, timeInterval*numImages)}, timeInterval);
-		console.log("flashing image for: " + i);
-		console.log(currElem);
-		// var submitButton = document.getElementById("submit-btn");
-		// submitButton.disabled = true;
 
-		// setTimeout(function(){submitButton.disabled = false;}, 10000);
 
-	}
-
+	var isPositive = true;
+	setInterval(function(){flashRandomStimuli()}, timeInterval);
 	
 }
 
-function flashImage(currElem, time){
-	// console.log("flashing" + currElem);
-	currElem.style.display = "block";
-	setTimeout(function(){currElem.style.display = "none"}, time);
+function flashRandomStimuliAlt(){
+	
+	var optionToFlash=Math.floor((Math.random() * numOptions));
+
+	while (prevImgNum == optionToFlash){
+		optionToFlash = Math.floor((Math.random() * numOptions));
+	}
+	prevImgNum = optionToFlash;
+	console.log(optionToFlash);
+
+	options[optionToFlash].style.display = "block";
+	setTimeout(function(){options[optionToFlash].style.display = "none"}, timeInterval-10);
+	// console.log(optionToFlash);
 }
+
+
+
+function flashRandomStimuli(){
+	
+	counter++; 
+	var optionToFlash=Math.floor((Math.random() * numOptions));
+
+	while (recentOptions.indexOf(optionToFlash) >= 0 ){
+		optionToFlash = Math.floor((Math.random() * numOptions));
+	}
+
+	recentOptions[counter % numRecentOptsToStore] = optionToFlash;
+	
+	// console.log(counter + " : " + optionToFlash);
+
+	options[optionToFlash].style.display = "block";
+	setTimeout(function(){options[optionToFlash].style.display = "none"}, timeInterval-10);
+	// console.log(optionToFlash);
+}
+
+function changeStimulis(isPositive){
+	var i = 0;
+
+	if (isPositive){
+		for (i; i<(numStim); i++){
+			var id = "pos-"+i;
+			console.log("getting id:" + id);
+			options[i+numRegOpts-1] = document.getElementById(id);
+			options[i+numRegOpts-1].style.display = "none";
+		}
+	} 
+	else{
+		for (i; i<(numStim); i++){
+			var id = "neg-"+i;
+			console.log("getting id:" + id);
+			options[i+numRegOpts-1] = document.getElementById(id);
+			options[i+numRegOpts-1].style.display = "none";
+		}
+	}
+
+	numOptions = numRegOpts + numStim - 1;
+
+}
+
 
 </script>

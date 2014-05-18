@@ -1,6 +1,11 @@
 
 
 
+
+
+
+
+
 var options = [];
 var posOptions = [];
 var negOptions = [];
@@ -19,39 +24,38 @@ var stateIsPositive = false;
 var stimProbability = 10;
 var test;
 
-var isNegativeTest = true;
-	var q_type;
 
 
 
 window.onload = function(){
 
+	var q_type;
 	if (document.getElementById("q_category")){
 		q_type = document.getElementById("q_category").innerHTML;
 	}
 	if (document.getElementById("target_value")){
 		targetValue = document.getElementById("target_value");
 	}
-
+	// obj = new flashForRange('value');
 	if (q_type == "range") test = new flashForRange("value");
-	// else if (q_type == "choice") flashForSelect();
+	else if (q_type == "select") flashForSelect();
 
-	// Initialize constants
+
+
 	var numOptionsElem = document.getElementById("num-image");
 	numRegOpts = parseInt(numOptionsElem.innerHTML);
+
+	// var numOptionsElem = document.getElementById("num-positive");
 	numStim = parseInt(document.getElementById("num-stim").innerHTML);
 	numOptions = numRegOpts;
 
-
-	// Populate Images: control
 	for (i=0; i<numRegOpts; i++){
 		var id = "cycle-"+i;
-		// console.log("getting id:" + id);
+		console.log("getting id:" + id);
 		options[i] = document.getElementById(id);
 		options[i].style.display = "none";
 	}
 
-	// Populate Images: stimuli
 	for (i=0; i<numStim; i++){
 		var id = "pos-"+i;
 		posOptions[i] = document.getElementById(id);
@@ -60,20 +64,21 @@ window.onload = function(){
 	}
 
 
+
+
+
+	// changeStimulis(true);
+	// setInterval(function(){flashRandomStimuli()}, timeInterval);
 	setInterval(function(){flashStim()}, timeInterval);
 
 	
 }
 
-// Randomly generates stimuli based on globally defined probability
+
 function flashStim(){
-	if (q_type == "choice") flashForSelect();
-
-
-	var isStimulis =Math.floor((Math.random() * stimProbability * 100));
-	// console.log(stateIsPositive);
-	// console.log(isStimulis);
-	if (isStimulis >= 100){
+	var isStimulis =Math.floor((Math.random() * stimProbability));
+	console.log(isStimulis);
+	if (isStimulis != 0){
 		flashStimulis(false);
 	} else{
 		flashStimulis(true);
@@ -84,9 +89,6 @@ function flashStim(){
 
 function flashStimulis(shouldBeStim){
 
-	// console.log("stimProbability: " + stimProbability);
-
-	// counter used to make sure the same images are not repeated
 	if (!shouldBeStim){
 		counter++;
 		var optionToFlash=Math.floor((Math.random() * numOptions));
@@ -100,17 +102,13 @@ function flashStimulis(shouldBeStim){
 
 		options[optionToFlash].style.display = "block";
 		setTimeout(function(){options[optionToFlash].style.display = "none"}, timeInterval);
-	} 
-	// separate counter used to make sure the same stimuli are not repeated
-	else{
+	} else{
 		stimcounter++;
 		var optionToFlash=Math.floor((Math.random() * numStim));
 		while (recentStimOptions.indexOf(optionToFlash) >= 0 ){
 			optionToFlash = Math.floor((Math.random() * numStim));
 		}
 		recentStimOptions[stimcounter % numRecentOptsToStore] = optionToFlash;
-
-		// Shows positive or negative img based on current state
 		if (stateIsPositive){
 			posOptions[optionToFlash].style.display = "block";
 			setTimeout(function(){posOptions[optionToFlash%numStim].style.display = "none"}, timeInterval);
@@ -123,21 +121,57 @@ function flashStimulis(shouldBeStim){
 
 
 
+function flashRandomStimuli(){
+	counter++; 
+	var optionToFlash=Math.floor((Math.random() * numStim));
+	while (recentOptions.indexOf(optionToFlash) >= 0 ){
+		optionToFlash = Math.floor((Math.random() * numOptions));
+	}
+	recentOptions[counter % numRecentOptsToStore] = optionToFlash;
+	options[optionToFlash].style.display = "block";
+	setTimeout(function(){options[optionToFlash].style.display = "none"}, timeInterval);
+}
 
 function changeStimulis(isPositive){
 	if (stateIsPositive == isPositive){
-		// console.log("state is already that way");
+		console.log("state is already that way");
 		return;
 	}
 
+	var i = 0;
 	stateIsPositive = isPositive;
-	// console.log("changing Stimulis");
+	
+	console.log("changing Stimulis");
+
+	// if (isPositive){
+	// 	console.log("Makeing posivite");
+	// 	for (i; i<(numStim); i++){
+	// 		var id = "pos-"+i;
+	// 		console.log("getting id:" + id);
+	// 		if (document.getElementById(id)){
+	// 			options[i+numRegOpts-1] = document.getElementById(id);
+	// 		}
+	// 	}
+	// } 
+	// else{
+	// 	console.log("Makeing negative");
+	// 	for (i; i<(numStim); i++){
+	// 		var id = "neg-"+i;
+	// 		console.log("getting id:" + id);
+	// 		if (document.getElementById(id)){
+	// 			options[i+numRegOpts-1] = document.getElementById(id);
+	// 		}
+	// 	}
+	// }
+
+	// numOptions = numRegOpts + numStim - 1;
+
 }
 
 
 function flashForRange(rangeId) {
 	this.rangeSlider = document.getElementById(rangeId);
-	// console.log(this.rangeSlider);
+	console.log(this.rangeSlider);
 	this.isActive = false;
 	if (!this.rangeSlider) return;
 	obj = this;
@@ -170,35 +204,19 @@ flashForRange.prototype.mouseUp = function(event){
 
 function handleSliderOutput(value){
 	// console.log(value);
-	target = parseInt(target_value.innerHTML);
-
-
-	if (isNegativeTest){
-		changeStimulis(false);
-		stimProbability = Math.abs(1.0*target/(1.0*target - value))*1;
-		// console.log("stimProbability: " + stimProbability);
-		stimProbability *= stimProbability;
-		stimProbability += 5;
-		return;
-	}
-
-	if(value < target){
+	console.log(target_value.innerHTML);
+	if(value < target_value.innerHTML){
 		changeStimulis(true);
-	}else if (value > target){
+	}else if (value > target_value.innerHTML){
 		changeStimulis(false);
 	}
-
-
 }
 
 function flashForSelect(){
-	// console.log("choice")
 	i = 1;
-	q_num = document.getElementById("q_num").innerHTML;
 	var currCheckBox = document.getElementById(q_num + "_"+i);
 	var target_value = document.getElementById("target_value").innerHTML;
 	var rate_value;
-
 
 	// Get current value
 	while (currCheckBox){
@@ -213,7 +231,6 @@ function flashForSelect(){
 	}
 	if (rate_value != targetValue){
 		changeStimulis(false);
-		stimProbability = 20;
 	} else{
 		changeStimulis(true);
 	}

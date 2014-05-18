@@ -4,11 +4,13 @@
 var options = [];
 var posOptions = [];
 var negOptions = [];
-var timeInterval =100;
+var timeInterval =2;
 var recentOptions = [];
 var recentStimOptions = [];
 
 var numRecentOptsToStore = 3;
+var numRecentStimToStore = 3;
+
 var counter = 0;
 var stimcounter = 0;
 var numRegOpts;
@@ -19,7 +21,7 @@ var stateIsPositive = false;
 var stimProbability = 10;
 var test;
 
-var isNegativeTest = true;
+var isNegativeTest = false;
 	var q_type;
 
 
@@ -34,19 +36,19 @@ window.onload = function(){
 	}
 
 	if (q_type == "range") test = new flashForRange("value");
-	// else if (q_type == "choice") flashForSelect();
 
 	// Initialize constants
 	var numOptionsElem = document.getElementById("num-image");
 	numRegOpts = parseInt(numOptionsElem.innerHTML);
 	numStim = parseInt(document.getElementById("num-stim").innerHTML);
 	numOptions = numRegOpts;
+	numRecentOptsToStore = numRegOpts-1;
+	numRecentStimToStore = numStim-1;
 
 
 	// Populate Images: control
 	for (i=0; i<numRegOpts; i++){
 		var id = "cycle-"+i;
-		// console.log("getting id:" + id);
 		options[i] = document.getElementById(id);
 		options[i].style.display = "none";
 	}

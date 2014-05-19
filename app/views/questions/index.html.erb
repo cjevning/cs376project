@@ -13,16 +13,8 @@
 
 	<% @questions.each do |q| %>
 
-		<div class="value-cycle-wrapper">
 
-			<% if @partial == 0 %>
-				<%= render "users/text_stimuli" %>
-			<% elsif @partial == 1 %>
-				<%= render "users/symbol_stimuli" %>
-			<% else %>
-				<%= render "users/image_stimuli" %>
-			<% end %>
-		</div>
+
 
 		<div id="hidden-content">
 			<p id="q_category"><%=q.q_category%></p>
@@ -33,9 +25,43 @@
 
 
 		<div id="question">
-		<% if q.q_subcategory != "null" %>
+		<%# if q.q_subcategory != "null" %>
+		<% if true %>
 		<br>
-			<img src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>"></img>
+	
+			<div id="prompt-wrapper2">
+				<div id="main">
+					<% if q.q_subcategory != "null" %>
+					<img id="prompt-img" src="<%= image_path(q.img_filename) %>" alt="<%= q.img_filename %>"></img>
+					<% else %>
+					
+					<%= image_tag("symbols/reg/reg_29.svg" , :id =>'prompt-img') %>
+					<% end %>
+				</div>
+				
+				<div id="prompt">
+						<div class="value-cycle-wrapper">
+
+						<!-- <img src="http://media-cache-ec0.pinimg.com/736x/72/0b/4f/720b4fc5ad719fd9d712e4d8c79e438a.jpg" alt="http://media-cache-ec0.pinimg.com/736x/72/0b/4f/720b4fc5ad719fd9d712e4d8c79e438a.jpg" id="pos-0" class="cycle-elem" style="display: block"> -->
+
+						<% if @partial == 0 %>
+							<%= render "users/text_stimuli" %>
+						<% elsif @partial == 1 %>
+							<%= render "users/symbol_stimuli" %>
+						<% else %>
+							<%= render "users/image_stimuli" %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			
+
+
+			</div>
 			<br>
 		<% end %>
 		<%= q.q_text %>
@@ -70,7 +96,7 @@
 					</div>
 			<% end %>
 		<div id="submitButton">
-		<%= submit_tag(value = "Next", id:"submit-btn") %>
+		<%= submit_tag(value = "Next", id:"submit-btn", :onclick => "recordTime();" )%>
 		</div>
 
 		<%= image_tag "p1c.png", id:"flash-this"%>

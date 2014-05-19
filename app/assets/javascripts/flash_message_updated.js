@@ -4,7 +4,7 @@
 var options = [];
 var posOptions = [];
 var negOptions = [];
-var timeInterval =100;
+var timeInterval =5;
 var recentOptions = [];
 var recentStimOptions = [];
 
@@ -26,11 +26,16 @@ var isNegativeTest = false;
 var isStandardStimulis = false;
 var q_type;
 var testType;
+var start;
+
+var numClicks;
 
 
 
 window.onload = function(){
 	console.log("Initializing");
+	start = new Date();
+	numClicks = 0;
 	if (document.getElementById("q_category")){
 		q_type = document.getElementById("q_category").innerHTML;
 	}
@@ -41,21 +46,27 @@ window.onload = function(){
 
 	if (document.getElementById("test_type")){
 		testType = document.getElementById("test_type").innerHTML;
+		testField = document.getElementById("stimulus_type");
 		console.log("test type: " + testType);
 		switch(parseInt(testType)) {
 			case 0: //control
 				stimProbability = 100000;
+				testField.value = "control";
 			    break;
 			case 1: // standardStimulis (positive)
 				isStandardStimulis = true;
 				changeStimulis(true);
+				testField.value = "std_pos";
 				break;
 			case 2: // dynamic stimulis
+				testField.value = "dynamic_reg";
 			    break;
 			case 3:
 				isNegativeTest = true;
+				testField.value = "dynamic_neg";
 				break;
-			default:   
+			default: 
+				testField.value = "error";  
 		}
 	} else{
 		testType = 0;
@@ -177,6 +188,7 @@ function flashForRange(rangeId) {
 
 flashForRange.prototype.mouseDown = function(event){
 	this.isActive = true;
+	numClicks++;
 
 	// To handle slider action
 	this.rangeSlider.onmousemove = function(event) {obj.mouseMove(event);}
@@ -259,5 +271,16 @@ function flashForSelect(){
 	} else{
 		changeStimulis(true);
 	}
+}
+
+function recordTime(){
+	console.log("clicked");
+	var currTime = new Date();
+	var timeSpent = currTime-start;
+	console.log(timeSpent);
+	var submitTime = document.getElementById("response_time");
+	if (submitTime) submitTime.value = timeSpent;
+	var timesChanged = document.getElementById("value_changes");
+	if(timesChanged) timesChanged.value = numClicks;
 }
 

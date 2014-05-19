@@ -50,14 +50,15 @@ window.onload = function(){
 				isStandardStimulis = true;
 				break;
 			case 2: // dynamic stimulis
+				isNegativeTest = true;
 			    break;
 			default:   
 		}
+	} else{
+		testType = 0;
+		isNegativeTest = false;
 	}
-
-	testType=3;
-	// isStandardStimulis = true;
-
+aha
 	if (q_type == "range") test = new flashForRange("value");
 
 	// Initialize constants
@@ -150,12 +151,10 @@ function flashStimulis(shouldBeStim){
 
 function changeStimulis(isPositive){
 	if (stateIsPositive == isPositive){
-		// console.log("state is already that way");
 		return;
 	}
 
 	stateIsPositive = isPositive;
-	// console.log("changing Stimulis");
 }
 
 

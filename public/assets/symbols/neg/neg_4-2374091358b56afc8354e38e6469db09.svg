@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="80px" height="80px" viewBox="0 0 80 80" enable-background="new 0 0 80 80" xml:space="preserve">
+<g id="Line" display="none">
+	<circle display="inline" fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" cx="40" cy="40" r="35"/>
+	<circle display="inline" stroke="#000000" stroke-width="7" stroke-miterlimit="10" cx="29" cy="30" r="2.5"/>
+	<circle display="inline" stroke="#000000" stroke-width="7" stroke-miterlimit="10" cx="51" cy="30" r="2.5"/>
+	
+		<path display="inline" stroke="#000000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M54.988,54.993c-6.858-11.191-23.118-11.191-29.977,0H54.988z"/>
+</g>
+<g id="Fill">
+	<g>
+		<path d="M40,78.5C18.771,78.5,1.5,61.229,1.5,40S18.771,1.5,40,1.5c21.229,0,38.5,17.271,38.5,38.5S61.229,78.5,40,78.5z M40,8.5    C22.631,8.5,8.5,22.631,8.5,40S22.631,71.5,40,71.5S71.5,57.369,71.5,40S57.369,8.5,40,8.5z"/>
+	</g>
+	<path d="M29,24c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6S32.309,24,29,24z"/>
+	<path d="M51,24c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6S54.309,24,51,24z"/>
+	<path d="M57.973,53.164C54.11,46.862,47.392,43.1,40,43.1s-14.11,3.763-17.973,10.064c-0.662,1.08-0.688,2.434-0.069,3.539   s1.787,1.79,3.054,1.79h29.977c1.267,0,2.435-0.685,3.054-1.79S58.635,54.244,57.973,53.164z"/>
+</g>
+</svg>

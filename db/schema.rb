@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20140506072213) do
 
   create_table "responses", force: true do |t|
     t.string  "username"
+    t.integer "age"
+    t.string  "country"
+    t.string  "gender"
     t.integer "q_id"
     t.string  "stimulus_type"
     t.integer "response_time"

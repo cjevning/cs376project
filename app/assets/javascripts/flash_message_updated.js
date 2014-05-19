@@ -4,7 +4,7 @@
 var options = [];
 var posOptions = [];
 var negOptions = [];
-var timeInterval =05;
+var timeInterval =5;
 var recentOptions = [];
 var recentStimOptions = [];
 

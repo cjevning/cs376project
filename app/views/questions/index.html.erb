@@ -14,7 +14,7 @@
 	<% @questions.each do |q| %>
 
 
-		
+
 
 		<div id="hidden-content">
 			<p id="q_category"><%=q.q_category%></p>
@@ -46,7 +46,7 @@
 
 						<% if @partial == 0 %>
 							<%= render "users/text_stimuli" %>
-						<% elsif @partial == 10 %>
+						<% elsif @partial == 1 %>
 							<%= render "users/symbol_stimuli" %>
 						<% else %>
 							<%= render "users/image_stimuli" %>

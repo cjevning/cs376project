@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
 	def index
 		@id = params[:id]
 		@test = rand(3)
+		@partial = rand(2)
 		@questions = Question.where('id = ?', @id).find(:all)
 	end
 

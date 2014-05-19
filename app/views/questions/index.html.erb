@@ -14,9 +14,9 @@
 	<% @questions.each do |q| %>
 
 		<div class="value-cycle-wrapper">
-			<% if q.partial_type == "text" %>
+			<% if @partial == 0 %>
 				<%= render "users/text_stimuli" %>
-			<% elsif q.partial_type == "symbol" %>
+			<% elsif @partial == 1 %>
 				<%= render "users/symbol_stimuli" %>
 			<% else %>
 				<%= render "users/image_stimuli" %>

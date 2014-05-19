@@ -4,12 +4,13 @@
 var options = [];
 var posOptions = [];
 var negOptions = [];
-var timeInterval =2;
+var timeInterval =300;
 var recentOptions = [];
 var recentStimOptions = [];
 
 var numRecentOptsToStore = 3;
 var numRecentStimToStore = 3;
+var NUM_STIM_TYPES = 0;
 
 var counter = 0;
 var stimcounter = 0;
@@ -22,7 +23,9 @@ var stimProbability = 10;
 var test;
 
 var isNegativeTest = false;
-	var q_type;
+var isStandardStimulis = false;
+var q_type;
+var testType;
 
 
 
@@ -31,9 +34,29 @@ window.onload = function(){
 	if (document.getElementById("q_category")){
 		q_type = document.getElementById("q_category").innerHTML;
 	}
+
 	if (document.getElementById("target_value")){
-		targetValue = document.getElementById("target_value");
+		targetValue = document.getElementById("target_value").innerHTML;
 	}
+
+	if (document.getElementById("test_type")){
+		testType = document.getElementById("test_type").innerHTML;
+		switch(parseInt(testType)) {
+			case 0: //control
+				stimProbability = 100000;
+				return;
+			    break;
+			case 1: // standardStimulis (positive)
+				isStandardStimulis = true;
+				break;
+			case 2: // dynamic stimulis
+			    break;
+			default:   
+		}
+	}
+
+	testType=3;
+	// isStandardStimulis = true;
 
 	if (q_type == "range") test = new flashForRange("value");
 
@@ -42,9 +65,13 @@ window.onload = function(){
 	numRegOpts = parseInt(numOptionsElem.innerHTML);
 	numStim = parseInt(document.getElementById("num-stim").innerHTML);
 	numOptions = numRegOpts;
-	numRecentOptsToStore = numRegOpts-1;
-	numRecentStimToStore = numStim-1;
+	numRecentOptsToStore = numRegOpts/(2.5);
+	numRecentStimToStore = numStim/(2.5);
 
+	// Disable start button
+	var submitButton = document.getElementById("submit-btn");
+	submitButton.disabled = true;
+	setTimeout(function(){submitButton.disabled = false;}, 5000);
 
 	// Populate Images: control
 	for (i=0; i<numRegOpts; i++){
@@ -61,20 +88,17 @@ window.onload = function(){
 		negOptions[i] = document.getElementById(id);
 	}
 
-
 	setInterval(function(){flashStim()}, timeInterval);
-
 	
 }
+
+
 
 // Randomly generates stimuli based on globally defined probability
 function flashStim(){
 	if (q_type == "choice") flashForSelect();
 
-
 	var isStimulis =Math.floor((Math.random() * stimProbability * 100));
-	// console.log(stateIsPositive);
-	// console.log(isStimulis);
 	if (isStimulis >= 100){
 		flashStimulis(false);
 	} else{
@@ -85,8 +109,6 @@ function flashStim(){
 }
 
 function flashStimulis(shouldBeStim){
-
-	// console.log("stimProbability: " + stimProbability);
 
 	// counter used to make sure the same images are not repeated
 	if (!shouldBeStim){
@@ -110,7 +132,7 @@ function flashStimulis(shouldBeStim){
 		while (recentStimOptions.indexOf(optionToFlash) >= 0 ){
 			optionToFlash = Math.floor((Math.random() * numStim));
 		}
-		recentStimOptions[stimcounter % numRecentOptsToStore] = optionToFlash;
+		recentStimOptions[stimcounter % numRecentStimToStore] = optionToFlash;
 
 		// Shows positive or negative img based on current state
 		if (stateIsPositive){
@@ -175,6 +197,12 @@ function handleSliderOutput(value){
 	target = parseInt(target_value.innerHTML);
 
 
+	if (!testType) return;// control
+	if (isStandardStimulis) {
+		changeStimulis(true);
+		return;
+	}
+
 	if (isNegativeTest){
 		changeStimulis(false);
 		stimProbability = Math.abs(1.0*target/(1.0*target - value))*1;
@@ -195,6 +223,12 @@ function handleSliderOutput(value){
 
 function flashForSelect(){
 	// console.log("choice")
+
+	if (!testType) return;
+	if (isStandardStimulis) {
+		changeStimulis(true);
+		return;
+	}
 	i = 1;
 	q_num = document.getElementById("q_num").innerHTML;
 	var currCheckBox = document.getElementById(q_num + "_"+i);

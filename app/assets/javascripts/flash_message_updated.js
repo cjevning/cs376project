@@ -4,7 +4,7 @@
 var options = [];
 var posOptions = [];
 var negOptions = [];
-var timeInterval =100;
+var timeInterval =10;
 var recentOptions = [];
 var recentStimOptions = [];
 
@@ -41,21 +41,27 @@ window.onload = function(){
 
 	if (document.getElementById("test_type")){
 		testType = document.getElementById("test_type").innerHTML;
+		testField = document.getElementById("stimulus_type");
 		console.log("test type: " + testType);
 		switch(parseInt(testType)) {
 			case 0: //control
 				stimProbability = 100000;
+				testField.value = "control";
 			    break;
 			case 1: // standardStimulis (positive)
 				isStandardStimulis = true;
 				changeStimulis(true);
+				testField.value = "std_pos";
 				break;
 			case 2: // dynamic stimulis
+				testField.value = "dynamic_reg";
 			    break;
 			case 3:
 				isNegativeTest = true;
+				testField.value = "dynamic_neg";
 				break;
-			default:   
+			default: 
+				testField.value = "error";  
 		}
 	} else{
 		testType = 0;

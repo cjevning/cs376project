@@ -36,7 +36,6 @@
 					<% else %>
 					
 					<%= image_tag("symbols/reg/reg_29.svg" , :id =>'prompt-img') %>
-					
 					<% end %>
 				</div>
 				
@@ -97,7 +96,7 @@
 					</div>
 			<% end %>
 		<div id="submitButton">
-		<%= submit_tag(value = "Next", id:"submit-btn") %>
+		<%= submit_tag(value = "Next", id:"submit-btn", :onclick => "recordTime();" )%>
 		</div>
 
 		<%= image_tag "p1c.png", id:"flash-this"%>

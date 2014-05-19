@@ -4,7 +4,7 @@
 var options = [];
 var posOptions = [];
 var negOptions = [];
-var timeInterval =300;
+var timeInterval =100;
 var recentOptions = [];
 var recentStimOptions = [];
 
@@ -30,7 +30,7 @@ var testType;
 
 
 window.onload = function(){
-
+	console.log("Initializing");
 	if (document.getElementById("q_category")){
 		q_type = document.getElementById("q_category").innerHTML;
 	}
@@ -41,24 +41,27 @@ window.onload = function(){
 
 	if (document.getElementById("test_type")){
 		testType = document.getElementById("test_type").innerHTML;
+		console.log("test type: " + testType);
 		switch(parseInt(testType)) {
 			case 0: //control
 				stimProbability = 100000;
-				return;
 			    break;
 			case 1: // standardStimulis (positive)
 				isStandardStimulis = true;
+				changeStimulis(true);
 				break;
 			case 2: // dynamic stimulis
-				isNegativeTest = true;
 			    break;
+			case 3:
+				isNegativeTest = true;
+				break;
 			default:   
 		}
 	} else{
 		testType = 0;
 		isNegativeTest = false;
 	}
-aha
+
 	if (q_type == "range") test = new flashForRange("value");
 
 	// Initialize constants
@@ -137,9 +140,12 @@ function flashStimulis(shouldBeStim){
 
 		// Shows positive or negative img based on current state
 		if (stateIsPositive){
+			console.log("flashing positive");
 			posOptions[optionToFlash].style.display = "block";
 			setTimeout(function(){posOptions[optionToFlash%numStim].style.display = "none"}, timeInterval);
 		} else{
+			console.log("flashing negative");
+
 			negOptions[optionToFlash].style.display = "block";
 			setTimeout(function(){negOptions[optionToFlash%numStim].style.display = "none"}, timeInterval);
 		}
@@ -154,6 +160,7 @@ function changeStimulis(isPositive){
 		return;
 	}
 
+	console.log("reerse state");
 	stateIsPositive = isPositive;
 }
 
@@ -192,8 +199,7 @@ flashForRange.prototype.mouseUp = function(event){
 }
 
 function handleSliderOutput(value){
-	// console.log(value);
-	target = parseInt(target_value.innerHTML);
+	target = parseInt(document.getElementById("target_value").innerHTML);
 
 
 	if (!testType) return;// control
@@ -211,6 +217,7 @@ function handleSliderOutput(value){
 		return;
 	}
 
+	console.log("changing slider value. value:" + value + "  target: " + target);
 	if(value < target){
 		changeStimulis(true);
 	}else if (value > target){

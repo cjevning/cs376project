@@ -19,13 +19,14 @@ ActiveRecord::Schema.define(version: 20140506072213) do
     t.string  "q_text"
     t.string  "img_filename"
     t.string  "q_subcategory"
+    t.string  "partial_type"
     t.integer "target_value"
     t.integer "upper_bound"
     t.string  "choices"
   end
 
   create_table "responses", force: true do |t|
-    t.integer "user_id"
+    t.string  "username"
     t.integer "q_id"
     t.string  "stimulus_type"
     t.integer "response_time"

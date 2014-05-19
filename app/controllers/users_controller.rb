@@ -16,8 +16,9 @@ class UsersController < ApplicationController
 	def create
 		params.permit!
 		@user = User.new(params[:user])
+		session["user"] = @user.username
 		if @user.valid?
-			#need new redirect
+			@user.save
 			redirect_to(:controller => "Questions", :action => "index", :id => 1)	
 		else
 			flash[:notice] = @user.errors.full_messages

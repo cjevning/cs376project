@@ -6,6 +6,7 @@ class Questions < ActiveRecord::Migration
 	  t.string	:q_text
 	  t.string	:img_filename
 	  t.string	:q_subcategory
+	  t.string	:partial_type
 	  t.integer	:target_value
 	  t.integer	:upper_bound
 	  t.string	:choices

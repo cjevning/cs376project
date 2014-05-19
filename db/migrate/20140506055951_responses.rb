@@ -1,7 +1,7 @@
 class Responses < ActiveRecord::Migration
   def change
   	create_table :responses do |t|
-	  t.integer	:user_id
+	  t.string	:username
 	  t.integer	:q_id
 	  t.string	:stimulus_type
 	  t.integer	:response_time

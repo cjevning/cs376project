@@ -4,7 +4,7 @@
 var options = [];
 var posOptions = [];
 var negOptions = [];
-var timeInterval =5;
+var timeInterval =10;
 var recentOptions = [];
 var recentStimOptions = [];
 
@@ -42,6 +42,10 @@ window.onload = function(){
 
 	if (document.getElementById("target_value")){
 		targetValue = document.getElementById("target_value").innerHTML;
+	}
+
+	if (document.getElementById("stim_type")){
+		if (document.getElementById("stim_type").innerHTML == 0) timeInterval*=3;
 	}
 
 	if (document.getElementById("test_type")){
@@ -229,7 +233,7 @@ function handleSliderOutput(value){
 		return;
 	}
 
-	console.log("changing slider value. value:" + value + "  target: " + target);
+	// console.log("changing slider value. value:" + value + "  target: " + target);
 	if(value < target){
 		changeStimulis(true);
 	}else if (value > target){
@@ -258,7 +262,7 @@ function flashForSelect(){
 	while (currCheckBox){
 		if (currCheckBox.checked) {
 		  rate_value = currCheckBox.value;
-		  console.log(rate_value);
+		  // console.log(rate_value);
 		  break;
 		} else{
 			i += 1;

@@ -4,7 +4,7 @@
 var options = [];
 var posOptions = [];
 var negOptions = [];
-var timeInterval =300;
+var timeInterval =10;
 var recentOptions = [];
 var recentStimOptions = [];
 
@@ -30,7 +30,7 @@ var testType;
 
 
 window.onload = function(){
-
+	console.log("Initializing");
 	if (document.getElementById("q_category")){
 		q_type = document.getElementById("q_category").innerHTML;
 	}
@@ -58,7 +58,7 @@ window.onload = function(){
 		testType = 0;
 		isNegativeTest = false;
 	}
-aha
+
 	if (q_type == "range") test = new flashForRange("value");
 
 	// Initialize constants

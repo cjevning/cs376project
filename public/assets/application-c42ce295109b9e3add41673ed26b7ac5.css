@@ -1,0 +1,110 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+ */
+
+
+ body{
+ 	font-family: 'Lato', sans-serif;
+ 	font-weight: 500;
+ }
+
+input[type=range]{
+	min-width: 300px;
+}
+
+input{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+
+.question{
+	margin-top: 150px;
+}
+
+#flash-this{
+	position: absolute;
+	top: 16px;
+	left: 8px;
+	display: none;
+	opacity: 1;
+}
+
+#signup {
+	width: 30%;
+	margin: 0 auto;
+	text-align: center; 
+}
+
+#description p{
+	line-height: 30px;
+	font-size: 20px;
+	opacity: 0.7;
+}
+
+#question {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+img {
+	min-width: 300px;
+	max-width: 500px;
+	min-height: 200px;
+	margin: 0 auto;
+	display: block;
+}
+
+#hidden-content{
+	display: none;
+}
+
+#message-div{
+	opacity: 0.3;
+	opacity: 0;
+	font-size: 36px;
+	letter-spacing: 1;
+	text-align: center;
+	/*margin-bottom: 20px;*/
+	margin-top: 20px;
+	/*margin-top: 20px;*/
+	/*margin-bottom: :;0px;*/
+}
+
+#submitButton{
+	display: block;
+}
+
+.value-cycle-wrapper{
+	position: relative;
+	width: 300px;
+	height: 200px;
+	overflow: hidden;
+	margin: 0 auto;
+	/*display: none;*/
+}
+
+.cycle-elem{
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 1;
+	width: 100%;
+	display: none;
+}
+
+.hidden{
+	display: none;
+}

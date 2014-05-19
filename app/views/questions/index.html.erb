@@ -17,8 +17,8 @@
 
 			<% if @partial == 0 %>
 				<%= render "users/text_stimuli" %>
-			<%# elsif @partial == 1 %>
-				<%#= render "users/symbol_stimuli" %>
+			<% elsif @partial == 1 %>
+				<%= render "users/symbol_stimuli" %>
 			<% else %>
 				<%= render "users/image_stimuli" %>
 			<% end %>

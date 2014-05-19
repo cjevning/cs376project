@@ -17,6 +17,9 @@ class UsersController < ApplicationController
 		params.permit!
 		@user = User.new(params[:user])
 		session["user"] = @user.username
+		session["age"] = @user.age
+		session["gender"] = @user.gender
+		session["country"] = @user.country
 		if @user.valid?
 			@user.save
 			redirect_to(:controller => "Questions", :action => "index", :id => 1)	

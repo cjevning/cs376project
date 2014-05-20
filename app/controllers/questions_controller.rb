@@ -1,6 +1,15 @@
 class QuestionsController < ApplicationController  
 	def index
 		@id = params[:id]
+		@code = ""
+		if (id == 18) 
+			responses = Response.where('username = ?', session["user"]).find(:all)
+			if responses.length >= 17
+				@code = "376CDCstan2014"
+			else
+				@code = "bad"
+			end
+		end
 		@test = rand(4)
 		@partial = rand(3)
 		@questions = Question.where('id = ?', @id).find(:all)
@@ -26,16 +35,11 @@ class QuestionsController < ApplicationController
 		newID = id + 1
 		response = Response.new(:username => user, :age => age, :country => country, :gender => gender, :q_id => id, :stimulus_type => type, :response_time => time, :target_value => target, :response_value => value, :value_changes => changes)
 	  	if response.save
-	    	redirect_to(:action => "index", :id => newID)
+	  		redirect_to(:action => "index", :id => newID)
 	    else
 	    	flash[:notice] = "Something went wrong! Please answer this question again."
 	    	redirect_to(:action => "index", :id => id)
 	    end
-
-
-
-		
-		
 	end
 
 	def viewData

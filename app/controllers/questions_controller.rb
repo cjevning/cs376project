@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
 		@id = params[:id]
 		@code = ""
 		if (@id == 18) 
+			session["user"] = "DISCARD"
 			responses = Response.where('username = ?', session["user"]).find(:all)
 			if responses.length >= 17
 				@code = "376CDCstan2014"

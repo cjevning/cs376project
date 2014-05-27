@@ -2,9 +2,9 @@ class QuestionsController < ApplicationController
 	def index
 		@id = params[:id]
 		@code = ""
-		if (@id.to_i == 18) 
+		if (@id.to_i == 7) 
 			responses = Response.where('username = ?', session["user"]).find(:all)
-			if responses.length >= 17
+			if responses.length >= 6
 				@code = "376CDCstan2014"
 			else
 				@code = "bad"

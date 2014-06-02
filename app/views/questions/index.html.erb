@@ -9,8 +9,14 @@
 <%= javascript_include_tag "flash_message_updated.js" %>
 
 <div class="question">
-
-
+	<% if @code != "" %>
+		<% if @code == "bad" %>
+			<p>You didn't answer all of the questions!</p>
+		<% else %>
+			<p>Thank you for finishing our survey. Copy and paste this code to claim your reward:</p>
+			<h2><%= @code %></h2>
+		<% end %>
+	<% end %>
 	<% @questions.each do |q| %>
 
 

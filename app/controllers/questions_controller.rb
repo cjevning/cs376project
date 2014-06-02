@@ -26,6 +26,16 @@ class QuestionsController < ApplicationController
 		age = session["age"]
 		country = session["country"]
 		gender = session["gender"]
+		part = param[:partial]
+		showing = ""
+		if part == 0:
+			showing = "text"
+		elsif part == 1:
+			showing = "symbol"
+		else:
+			showing = "image"
+		end
+
 		value = 0
 		if (qtype == "range") 
 			value = params[:value]
@@ -33,7 +43,7 @@ class QuestionsController < ApplicationController
 			value = params[id.to_s]
 		end
 		newID = id + 1
-		response = Response.new(:username => user, :age => age, :country => country, :gender => gender, :q_id => id, :stimulus_type => type, :response_time => time, :target_value => target, :response_value => value, :value_changes => changes)
+		response = Response.new(:username => user, :age => age, :country => country, :gender => gender, :q_id => id, :stimulus_type => type, :showing => showing, :response_time => time, :target_value => target, :response_value => value, :value_changes => changes)
 	  	if response.save
 	  		redirect_to(:action => "index", :id => newID)
 	    else

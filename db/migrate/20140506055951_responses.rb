@@ -7,6 +7,7 @@ class Responses < ActiveRecord::Migration
 	  t.string	:gender
 	  t.integer	:q_id
 	  t.string	:stimulus_type
+	  t.string  :showing
 	  t.integer	:response_time
 	  t.integer	:target_value
 	  t.integer	:response_value

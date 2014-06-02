@@ -9,10 +9,10 @@
 <%= javascript_include_tag "flash_message_updated.js" %>
 
 <div class="responses">
-	<%= "username,gender,age,country,q_id,stimulus_type,target_value,response_value,response_time,value_changes" %>
+	<%= "username,gender,age,country,q_id,stimulus_type,showing,target_value,response_value,response_time,value_changes" %>
 	<% @responses.each do |r| %>
 		<br>
-		<%= r.username + "," + r.gender + "," + r.age.to_s + "," + r.country + "," + r.q_id.to_s + "," +  r.stimulus_type + "," + r.target_value.to_s + "," + r.response_value.to_s + "," + r.response_time.to_s + "," + r.value_changes.to_s %>
+		<%= r.username + "," + r.gender + "," + r.age.to_s + "," + r.country + "," + r.q_id.to_s + "," +  r.stimulus_type + "," + r.showing + "," + r.target_value.to_s + "," + r.response_value.to_s + "," + r.response_time.to_s + "," + r.value_changes.to_s %>
 	<% end %>
 </div>
 
